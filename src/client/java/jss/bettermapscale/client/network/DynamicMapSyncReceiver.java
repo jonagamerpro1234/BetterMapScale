@@ -2,7 +2,7 @@ package jss.bettermapscale.client.network;
 
 import jss.bettermapscale.Bettermapscale;
 import jss.bettermapscale.map.BetterMapData;
-import jss.bettermapscale.mixin.MapStateAccessor;
+import jss.bettermapscale.mixin.legacy.MapStateAccessor;
 import jss.bettermapscale.network.ModNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;

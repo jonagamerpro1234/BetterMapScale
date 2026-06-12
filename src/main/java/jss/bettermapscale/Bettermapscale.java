@@ -1,5 +1,6 @@
 package jss.bettermapscale;
 
+import jss.bettermapscale.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,5 +13,9 @@ public class Bettermapscale implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("BetterMapScale initialized");
+        ModItems.initialize();
+        LOGGER.info("Loaded BetterMapScale items");
     }
+
+
 }

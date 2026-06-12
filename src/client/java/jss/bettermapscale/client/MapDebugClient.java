@@ -4,7 +4,7 @@ import jss.bettermapscale.Bettermapscale;
 import jss.bettermapscale.map.BetterMapData;
 import jss.bettermapscale.map.MapDebugHelper;
 import jss.bettermapscale.map.MapScaleHelper;
-import jss.bettermapscale.mixin.MapStateAccessor;
+import jss.bettermapscale.mixin.legacy.MapStateAccessor;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.FilledMapItem;

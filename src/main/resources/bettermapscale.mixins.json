@@ -4,11 +4,11 @@
   "package": "jss.bettermapscale.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MapStateAccessor",
-    "MapStateMixin",
-    "MapItemMixin",
-    "MapStateUpdateDataMixin",
-    "MapStateColorMixin"
+    "legacy.MapStateAccessor",
+    "legacy.MapStateMixin",
+    "legacy.MapItemMixin",
+    "legacy.MapStateUpdateDataMixin",
+    "legacy.MapStateColorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
