@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "bettermapscale",
+  "version": "${version}",
+  "name": "BetterMapScale",
+  "description": "Mod que modifica el sistema de mapas para representar mejor la escala real según el nivel del mapa.",
+  "authors": [
+    "SrJss(jonagamerpro1234)"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/bettermapscale/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "jss.bettermapscale.client.BettermapscaleClient"
+    ],
+    "main": [
+      "jss.bettermapscale.Bettermapscale"
+    ]
+  },
+  "mixins": [
+    "bettermapscale.mixins.json",
+    {
+      "config": "bettermapscale.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17"
+  }
+}
