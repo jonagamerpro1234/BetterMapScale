@@ -35,6 +35,6 @@ public final class MapConstants {
     public static final String END =
             "minecraft:the_end";
 
-    private MapConstants() {
-    }
+    public static final String MAP_DIMENSION =
+            "bettermapscale_dimension";
 }

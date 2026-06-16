@@ -29,4 +29,49 @@ public class BetterFilledMapItem extends Item {
     public static boolean hasMapData(@NotNull ItemStack stack) {
         return getMapId(stack) != -1;
     }
+
+    public static void setMapData(
+            ItemStack stack,
+            int mapId,
+            int size,
+            String dimension
+    ) {
+
+        stack.getOrCreateNbt()
+                .putInt(
+                        MapConstants.MAP_ID,
+                        mapId
+                );
+
+        stack.getOrCreateNbt()
+                .putInt(
+                        MapConstants.MAP_SIZE,
+                        size
+                );
+
+        stack.getOrCreateNbt()
+                .putString(
+                        MapConstants.MAP_DIMENSION,
+                        dimension
+                );
+    }
+
+    public static String getDimension(
+            ItemStack stack
+    ) {
+
+        if (
+                stack.getNbt() == null ||
+                        !stack.getNbt().contains(
+                                MapConstants.MAP_DIMENSION
+                        )
+        ) {
+            return MapConstants.OVERWORLD;
+        }
+
+        return stack.getNbt()
+                .getString(
+                        MapConstants.MAP_DIMENSION
+                );
+    }
 }

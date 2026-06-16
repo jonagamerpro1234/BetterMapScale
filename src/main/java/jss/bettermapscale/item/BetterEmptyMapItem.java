@@ -19,39 +19,14 @@ public class BetterEmptyMapItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(
-            @NotNull World world,
-            @NotNull PlayerEntity user,
-            Hand hand
-    ) {
-
+    public TypedActionResult<ItemStack> use(@NotNull World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
         if (!world.isClient) {
+            MapState state = MapManager.createMap((ServerWorld) world, MapConstants.DEFAULT_SIZE, user.getBlockX(), user.getBlockZ(), world.getRegistryKey().getValue().toString());
 
-            MapState state =
-                    MapManager.createMap(
-                            (ServerWorld) world,
-                            MapConstants.DEFAULT_SIZE,
-                            user.getBlockX(),
-                            user.getBlockZ(),
-                            world.getRegistryKey()
-                                    .getValue()
-                                    .toString()
-                    );
-
-            ItemStack filledMap =
-                    new ItemStack(ModItems.BETTER_FILLED_MAP);
-
-            filledMap.getOrCreateNbt().putInt(
-                    MapConstants.MAP_ID,
-                    state.getId()
-            );
-
-            filledMap.getOrCreateNbt().putInt(
-                    MapConstants.MAP_SIZE,
-                    state.getSize()
-            );
+            ItemStack filledMap = new ItemStack(ModItems.BETTER_FILLED_MAP);
+            BetterFilledMapItem.setMapData(filledMap, state.getId(), state.getSize(), state.getDimension());
 
             if (!user.getAbilities().creativeMode) {
                 stack.decrement(1);
