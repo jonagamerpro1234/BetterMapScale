@@ -12,38 +12,16 @@ import net.minecraft.text.Text;
 public class MapTestScreen extends Screen {
 
     private MapTexture texture;
+    private final MapState state;
 
-    public MapTestScreen() {
+    public MapTestScreen(MapState state) {
         super(Text.of("Better Map Test"));
+        this.state = state;
     }
 
     @Override
     protected void init() {
 
-        if (texture != null) {
-            return;
-        }
-
-        MinecraftClient client = MinecraftClient.getInstance();
-
-        if (client.world == null) {
-            return;
-        }
-
-        IntegratedServer server = client.getServer();
-
-        if (server == null) {
-            return;
-        }
-
-        ServerWorld world = server.getOverworld();
-
-        if (world == null) {
-            return;
-        }
-
-        MapState state = new MapState(0,256,0,0,"minecraft:overworld",System.currentTimeMillis(),1);
-        MapGenerator.generateMap(world,state);
         texture = MapRenderer.getTexture(state);
     }
 
@@ -53,16 +31,20 @@ public class MapTestScreen extends Screen {
         renderBackground(context);
 
         if (texture != null) {
+
+            int x = (width - state.getSize()) / 2;
+            int y = (height - state.getSize()) / 2;
+
             context.drawTexture(
                     texture.getTextureId(),
-                    100,
-                    100,
+                    x,
+                    y,
                     0,
                     0,
-                    256,
-                    256,
-                    256,
-                    256
+                    state.getSize(),
+                    state.getSize(),
+                    state.getSize(),
+                    state.getSize()
             );
         }
 
