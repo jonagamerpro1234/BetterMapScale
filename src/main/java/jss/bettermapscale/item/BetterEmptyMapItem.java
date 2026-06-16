@@ -32,7 +32,12 @@ public class BetterEmptyMapItem extends Item {
             BetterMapState state =
                     BetterMapManager.createMap(
                             (ServerWorld) world,
-                            BetterMapConstants.DEFAULT_SIZE
+                            BetterMapConstants.DEFAULT_SIZE,
+                            user.getBlockX(),
+                            user.getBlockZ(),
+                            world.getRegistryKey()
+                                    .getValue()
+                                    .toString()
                     );
 
             ItemStack filledMap =

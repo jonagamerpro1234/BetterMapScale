@@ -9,15 +9,6 @@ public class BetterMapPersistentState extends PersistentState {
 
     private int nextId = 1;
 
-    public int createMapId() {
-
-        System.out.println("[BetterMapScale] createMapId() called");
-
-        markDirty();
-
-        return nextId++;
-    }
-
     @Contract(value = " -> new", pure = true)
     public static @NotNull BetterMapPersistentState create() {
 
@@ -40,6 +31,15 @@ public class BetterMapPersistentState extends PersistentState {
         }
 
         return state;
+    }
+
+    public int createMapId() {
+
+        System.out.println("[BetterMapScale] createMapId() called");
+
+        markDirty();
+
+        return nextId++;
     }
 
     @Override

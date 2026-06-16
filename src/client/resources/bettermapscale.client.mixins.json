@@ -3,12 +3,7 @@
   "minVersion": "0.8",
   "package": "jss.bettermapscale.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "legacy.MapStateAccessor",
-    "legacy.MapStateMixin",
-    "legacy.MapStateNbtMixin",
-    "legacy.MapItemMixin"
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   },

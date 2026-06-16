@@ -1,6 +1,7 @@
 package jss.bettermapscale.storage;
 
 import jss.bettermapscale.Bettermapscale;
+import jss.bettermapscale.map.BetterMapGenerator;
 import jss.bettermapscale.map.BetterMapState;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.NotNull;
@@ -14,28 +15,62 @@ public final class BetterMapManager {
 
     public static @NotNull BetterMapState createMap(
             ServerWorld world,
-            int size
+            int size,
+            int centerX,
+            int centerZ,
+            String dimension
     ) {
 
         int id = createMapId(world);
 
         BetterMapState state =
-                new BetterMapState(id, size);
+                new BetterMapState(
+                        id,
+                        size,
+                        centerX,
+                        centerZ,
+                        dimension,
+                        System.currentTimeMillis(),
+                        1
+                );
 
         MAPS.put(id, state);
 
+        BetterMapGenerator.generateMap(world, state);
+        BetterMapStorage.saveMap(world,state);
+
         Bettermapscale.LOGGER.info(
-                "Created BetterMap | id={} | size={} | area={}",
+                "Created BetterMap | id={} | size={} | center=({}, {}) | dimension={}",
                 id,
                 size,
-                state.getArea()
+                centerX,
+                centerZ,
+                dimension
         );
 
         return state;
     }
 
-    public static BetterMapState getMap(int id) {
-        return MAPS.get(id);
+    public static BetterMapState getMap(ServerWorld world, String dimension, int id) {
+
+        BetterMapState state =
+                MAPS.get(id);
+
+        if (state != null) {
+            return state;
+        }
+
+        state = BetterMapStorage.loadMap(
+                world,
+                dimension,
+                id
+        );
+
+        if (state != null) {
+            MAPS.put(id, state);
+        }
+
+        return state;
     }
 
     public static boolean exists(int id) {
