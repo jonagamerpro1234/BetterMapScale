@@ -52,27 +52,34 @@ This allows larger maps to display more terrain without sacrificing detail.
 
 ### Completed
 
+* Independent map state system.
 * Dynamic map size system.
 * Dynamic color array allocation.
-* Terrain color generation.
-* Client-server synchronization.
-* Dynamic texture rendering.
-* Functional 256×256 and 512×512 map prototypes.
-* Rendering experiments beyond vanilla limits.
+* Terrain generation pipeline.
+* Persistent map storage.
+* Map ID management.
+* NBT-based map item integration.
+* Dynamic texture generation.
+* Dynamic texture caching.
+* Map loading from disk.
+* Functional map screen renderer.
+* Support for multiple dimensions.
+* Functional 256×256 map implementation.
 
 ### In Progress
 
-* Persistent storage for large maps.
-* Optimized synchronization.
+* In-hand map rendering.
+* Terrain color improvements.
 * Incremental map updates.
-* Stable rendering pipeline.
+* Performance optimization.
 
 ### Planned
 
-* Independent map storage system.
-* Custom map renderer.
-* Multiplayer optimization.
+* Multiplayer synchronization.
+* Region-based updates.
+* Background map generation.
 * Configurable map resolutions.
+* Advanced terrain coloring.
 
 ---
 
@@ -107,16 +114,6 @@ Observed issues include:
 
 ---
 
-## Lessons Learned
-
-One of the most important discoveries made during development is that Minecraft's map system was never designed to scale beyond 128×128 pixels.
-
-While it is technically possible to patch individual components, doing so introduces increasing complexity and maintenance challenges.
-
-This led to a new development direction focused on building a dedicated mapping system rather than continuously modifying vanilla behavior.
-
----
-
 ## Future Architecture
 
 ### Vanilla Maps
@@ -125,7 +122,7 @@ Vanilla maps will remain untouched and fully compatible with Minecraft's origina
 
 ### Better Maps
 
-A new custom map type will be introduced:
+A new custom map type is being developed with:
 
 * Independent storage.
 * Independent synchronization.
@@ -134,13 +131,63 @@ A new custom map type will be introduced:
 * High-detail terrain representation.
 * Future multiplayer support.
 
-Planned components:
+Core components:
 
 * BetterFilledMapItem
-* BetterMapState
-* BetterMapStorage
-* BetterMapRenderer
+* BetterEmptyMapItem
+* MapState
+* MapManager
+* MapStorage
+* MapRenderer
 * Custom networking layer
+
+---
+
+## Current Architecture
+
+### Map Creation
+
+```text
+BetterEmptyMapItem
+        ↓
+MapManager.createMap()
+        ↓
+MapGenerator
+        ↓
+MapStorage.saveMap()
+        ↓
+BetterFilledMapItem
+```
+
+### Map Loading
+
+```text
+BetterFilledMapItem
+        ↓
+Map ID (NBT)
+        ↓
+MapManager.getMap()
+        ↓
+Memory Cache
+        ↓
+MapStorage.loadMap()
+        ↓
+MapState
+```
+
+### Rendering Pipeline
+
+```text
+MapState
+        ↓
+MapRenderer
+        ↓
+MapTexture
+        ↓
+NativeImage
+        ↓
+Screen / Future Item Rendering
+```
 
 ---
 
@@ -160,26 +207,40 @@ Status: **Completed**
 ### Phase 2 — Custom Map System
 
 * Create BetterFilledMapItem.
-* Create BetterMapState.
-* Create BetterMapStorage.
+* Create BetterEmptyMapItem.
+* Create MapState.
+* Create MapManager.
+* Create MapStorage.
+* Create MapRenderer.
 * Remove dependency on vanilla map internals.
+
+Status: **Completed**
+
+---
+
+### Phase 3 — Rendering & Synchronization
+
+* In-hand map rendering.
+* Incremental updates.
+* Region-based synchronization.
+* Multiplayer testing.
 
 Status: **In Progress**
 
 ---
 
-### Phase 3 — Optimization
+### Phase 4 — Optimization
 
-* Incremental updates.
-* Region-based synchronization.
-* Performance improvements.
-* Multiplayer testing.
+* Background map generation.
+* Texture update optimization.
+* Cache improvements.
+* Large-map performance testing.
 
 Status: **Planned**
 
 ---
 
-### Phase 4 — Release Preparation
+### Phase 5 — Release Preparation
 
 * Configuration options.
 * Documentation.
@@ -187,25 +248,6 @@ Status: **Planned**
 * Initial release.
 
 Status: **Planned**
-
----
-
-## Educational Purpose
-
-This project was originally created as a learning and research exercise focused on understanding Minecraft's map mechanics and rendering behavior.
-
-The objective is to explore how maps are generated, updated, synchronized, and displayed within the game, while experimenting with alternative approaches to map rendering and resolution scaling.
-
-Throughout development, the project has served as a practical way to learn about:
-
-* Client-server synchronization
-* Rendering systems
-* Data storage and serialization
-* Texture generation
-* Performance considerations
-* Mod development with Fabric
-
-The knowledge gained from this research is being used to design an independent high-resolution map system that can coexist with Minecraft's vanilla maps.
 
 ---
 
