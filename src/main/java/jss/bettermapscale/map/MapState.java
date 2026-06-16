@@ -1,6 +1,6 @@
 package jss.bettermapscale.map;
 
-public class BetterMapState {
+public class MapState {
 
     private final int id;
     private final int size;
@@ -18,7 +18,7 @@ public class BetterMapState {
 
     private boolean dirty;
 
-    public BetterMapState(
+    public MapState(
             int id,
             int size,
             int centerX,
@@ -47,7 +47,7 @@ public class BetterMapState {
         this.dirty = true;
     }
 
-    public BetterMapState(
+    public MapState(
             int id,
             int size,
             int centerX,
@@ -99,7 +99,7 @@ public class BetterMapState {
     ) {
 
         for (int supportedSize :
-                BetterMapConstants.SUPPORTED_SIZES) {
+                MapConstants.SUPPORTED_SIZES) {
 
             if (supportedSize == size) {
                 return;

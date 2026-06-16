@@ -1,8 +1,8 @@
 package jss.bettermapscale.item;
 
-import jss.bettermapscale.map.BetterMapConstants;
-import jss.bettermapscale.map.BetterMapState;
-import jss.bettermapscale.storage.BetterMapManager;
+import jss.bettermapscale.map.MapConstants;
+import jss.bettermapscale.map.MapState;
+import jss.bettermapscale.storage.MapManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,10 +29,10 @@ public class BetterEmptyMapItem extends Item {
 
         if (!world.isClient) {
 
-            BetterMapState state =
-                    BetterMapManager.createMap(
+            MapState state =
+                    MapManager.createMap(
                             (ServerWorld) world,
-                            BetterMapConstants.DEFAULT_SIZE,
+                            MapConstants.DEFAULT_SIZE,
                             user.getBlockX(),
                             user.getBlockZ(),
                             world.getRegistryKey()
@@ -44,12 +44,12 @@ public class BetterEmptyMapItem extends Item {
                     new ItemStack(ModItems.BETTER_FILLED_MAP);
 
             filledMap.getOrCreateNbt().putInt(
-                    BetterMapConstants.MAP_ID,
+                    MapConstants.MAP_ID,
                     state.getId()
             );
 
             filledMap.getOrCreateNbt().putInt(
-                    BetterMapConstants.MAP_SIZE,
+                    MapConstants.MAP_SIZE,
                     state.getSize()
             );
 

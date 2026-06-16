@@ -5,24 +5,24 @@ import net.minecraft.world.PersistentState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class BetterMapPersistentState extends PersistentState {
+public class MapPersistentState extends PersistentState {
 
     private int nextId = 1;
 
     @Contract(value = " -> new", pure = true)
-    public static @NotNull BetterMapPersistentState create() {
+    public static @NotNull MapPersistentState create() {
 
         System.out.println("[BetterMapScale] create()");
 
-        return new BetterMapPersistentState();
+        return new MapPersistentState();
     }
 
-    public static @NotNull BetterMapPersistentState fromNbt(@NotNull NbtCompound nbt) {
+    public static @NotNull MapPersistentState fromNbt(@NotNull NbtCompound nbt) {
 
         System.out.println("[BetterMapScale] fromNbt()");
 
-        BetterMapPersistentState state =
-                new BetterMapPersistentState();
+        MapPersistentState state =
+                new MapPersistentState();
 
         state.nextId = nbt.getInt("nextId");
 

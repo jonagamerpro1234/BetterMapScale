@@ -1,6 +1,6 @@
 package jss.bettermapscale.storage;
 
-import jss.bettermapscale.map.BetterMapState;
+import jss.bettermapscale.map.MapState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.world.ServerWorld;
@@ -12,17 +12,17 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 
-public final class BetterMapStorage {
+public final class MapStorage {
 
     private static final String FOLDER_NAME = "bettermapscale";
     private static final String MAPS_FOLDER = "maps";
     private static final int FILE_VERSION = 1;
 
-    private BetterMapStorage() {
+    private MapStorage() {
     }
 
     @SuppressWarnings("all")
-    public static void saveMap(ServerWorld world, @NotNull BetterMapState map) {
+    public static void saveMap(ServerWorld world, @NotNull MapState map) {
 
         try {
 
@@ -54,7 +54,7 @@ public final class BetterMapStorage {
         }
     }
 
-    private static @NotNull NbtCompound getNbtCompound(@NotNull BetterMapState map) {
+    private static @NotNull NbtCompound getNbtCompound(@NotNull MapState map) {
         NbtCompound nbt = new NbtCompound();
 
         nbt.putInt(
@@ -99,7 +99,7 @@ public final class BetterMapStorage {
         return nbt;
     }
 
-    public static @Nullable BetterMapState loadMap(ServerWorld world, String dimension, int mapId) {
+    public static @Nullable MapState loadMap(ServerWorld world, String dimension, int mapId) {
         try {
 
             File mapFile = new File(getMapsFolder(world, dimension), "map_" + mapId + ".dat");
@@ -127,7 +127,7 @@ public final class BetterMapStorage {
 
             byte[] colors = nbt.contains("colors") ? nbt.getByteArray("colors") : new byte[size * size];
 
-            return new BetterMapState(
+            return new MapState(
                     id,
                     size,
                     centerX,

@@ -1,6 +1,6 @@
 package jss.bettermapscale.map;
 
-public final class BetterMapConstants {
+public final class MapConstants {
 
     public static final String MAP_ID =
             "bettermapscale_id";
@@ -35,6 +35,6 @@ public final class BetterMapConstants {
     public static final String END =
             "minecraft:the_end";
 
-    private BetterMapConstants() {
+    private MapConstants() {
     }
 }

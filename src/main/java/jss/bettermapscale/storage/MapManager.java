@@ -1,19 +1,19 @@
 package jss.bettermapscale.storage;
 
 import jss.bettermapscale.Bettermapscale;
-import jss.bettermapscale.map.BetterMapGenerator;
-import jss.bettermapscale.map.BetterMapState;
+import jss.bettermapscale.map.MapGenerator;
+import jss.bettermapscale.map.MapState;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public final class BetterMapManager {
+public final class MapManager {
 
-    private static final Map<Integer, BetterMapState> MAPS = new HashMap<>();
+    private static final Map<Integer, MapState> MAPS = new HashMap<>();
 
-    public static @NotNull BetterMapState createMap(
+    public static @NotNull MapState createMap(
             ServerWorld world,
             int size,
             int centerX,
@@ -23,8 +23,8 @@ public final class BetterMapManager {
 
         int id = createMapId(world);
 
-        BetterMapState state =
-                new BetterMapState(
+        MapState state =
+                new MapState(
                         id,
                         size,
                         centerX,
@@ -36,8 +36,8 @@ public final class BetterMapManager {
 
         MAPS.put(id, state);
 
-        BetterMapGenerator.generateMap(world, state);
-        BetterMapStorage.saveMap(world,state);
+        MapGenerator.generateMap(world, state);
+        MapStorage.saveMap(world,state);
 
         Bettermapscale.LOGGER.info(
                 "Created BetterMap | id={} | size={} | center=({}, {}) | dimension={}",
@@ -51,16 +51,16 @@ public final class BetterMapManager {
         return state;
     }
 
-    public static BetterMapState getMap(ServerWorld world, String dimension, int id) {
+    public static MapState getMap(ServerWorld world, String dimension, int id) {
 
-        BetterMapState state =
+        MapState state =
                 MAPS.get(id);
 
         if (state != null) {
             return state;
         }
 
-        state = BetterMapStorage.loadMap(
+        state = MapStorage.loadMap(
                 world,
                 dimension,
                 id
@@ -79,17 +79,17 @@ public final class BetterMapManager {
 
     public static int createMapId(@NotNull ServerWorld world) {
 
-        BetterMapPersistentState state =
+        MapPersistentState state =
                 world.getPersistentStateManager()
                         .getOrCreate(
-                                BetterMapPersistentState::fromNbt,
-                                BetterMapPersistentState::create,
+                                MapPersistentState::fromNbt,
+                                MapPersistentState::create,
                                 "bettermapscale"
                         );
 
         return state.createMapId();
     }
 
-    private BetterMapManager() {
+    private MapManager() {
     }
 }

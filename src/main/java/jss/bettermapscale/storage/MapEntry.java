@@ -1,11 +1,11 @@
 package jss.bettermapscale.storage;
 
-public class BetterMapEntry {
+public class MapEntry {
 
     private final int id;
     private final int size;
 
-    public BetterMapEntry(int id, int size) {
+    public MapEntry(int id, int size) {
         this.id = id;
         this.size = size;
     }

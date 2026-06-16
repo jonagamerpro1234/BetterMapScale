@@ -1,4 +1,4 @@
 package jss.bettermapscale.client.render;
 
-public class BetterMapTexture {
+public class MapRenderer {
 }
