@@ -136,21 +136,26 @@ public class MapState {
         return z * size + x;
     }
 
-    public byte getColor(
-            int x,
-            int z
-    ) {
+    public boolean isEmpty() {
+        for (byte color : colors) {
+            if (color != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public byte getColor(int x, int z) {
         return colors[getIndex(x, z)];
     }
 
-    public void setColor(
-            int x,
-            int z,
-            byte color
-    ) {
+    public byte getColor(int index) {
+        return colors[index];
+    }
 
-        int index =
-                getIndex(x, z);
+
+    public void setColor(int x, int z, byte color) {
+        int index = getIndex(x, z);
 
         if (colors[index] == color) {
             return;

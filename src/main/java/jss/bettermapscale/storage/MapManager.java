@@ -13,14 +13,7 @@ public final class MapManager {
 
     private static final Map<Integer, MapState> MAPS = new HashMap<>();
 
-    public static @NotNull MapState createMap(
-            ServerWorld world,
-            int size,
-            int centerX,
-            int centerZ,
-            String dimension
-    ) {
-
+    public static @NotNull MapState createMap(ServerWorld world, int size, int centerX, int centerZ, String dimension) {
         int id = createMapId(world);
 
         MapState state =
@@ -38,6 +31,7 @@ public final class MapManager {
 
         MapGenerator.generateMap(world, state);
         MapStorage.saveMap(world,state);
+        state.clearDirty();
 
         Bettermapscale.LOGGER.info(
                 "Created BetterMap | id={} | size={} | center=({}, {}) | dimension={}",
@@ -73,12 +67,19 @@ public final class MapManager {
         return state;
     }
 
+    public static void unloadMap(int id) {
+        MAPS.remove(id);
+    }
+
+    public static void clear() {
+        MAPS.clear();
+    }
+
     public static boolean exists(int id) {
         return MAPS.containsKey(id);
     }
 
     public static int createMapId(@NotNull ServerWorld world) {
-
         MapPersistentState state =
                 world.getPersistentStateManager()
                         .getOrCreate(
@@ -90,6 +91,16 @@ public final class MapManager {
         return state.createMapId();
     }
 
-    private MapManager() {
+    public static void saveMap(ServerWorld world, @NotNull MapState state) {
+        if (!state.isDirty()) {
+            return;
+        }
+
+        MapStorage.saveMap(
+                world,
+                state
+        );
+
+        state.clearDirty();
     }
 }

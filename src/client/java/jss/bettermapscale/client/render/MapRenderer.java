@@ -28,9 +28,10 @@ public class MapRenderer {
         return texture;
     }
 
-    public static void removeTexture(int id){
+    public static void removeTexture(int id) {
         MapTexture texture = TEXTURES.remove(id);
-        if(texture != null){
+
+        if(texture != null) {
             texture.close();
         }
     }
@@ -39,8 +40,9 @@ public class MapRenderer {
         for(MapTexture texture : TEXTURES.values()){
             texture.close();
         }
-
         TEXTURES.clear();
     }
+
+
 
 }
